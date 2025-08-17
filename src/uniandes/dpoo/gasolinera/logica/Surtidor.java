@@ -103,12 +103,15 @@ public class Surtidor
     {
         // Calcular el precio de la gasolina vendida y registrar que el empleado tiene esa cantidad de dinero
         TipoGasolina tipo = tiposGasolina.get( nombreTipoGasolina );
-        int precio = ( int )Math.round( tipo.getPrecioPorGalon( ) * cantidadEntregada );
-        empleadoAsignado.agregarDinero( precio );
+        //OJO CON EL REDONDEO DE TEST 
+        double bruto = tipo.getPrecioPorGalon() * cantidadEntregada;
+        int precio = (int) bruto;
+        //OJO CON EL AGREGAR DINERO
+        empleadoAsignado.agregarDinero(precio);
 
         // Actualizar la cantidad de gasolina vendida en el surtidor
-        double cantidadAnterior = galonesVendidos.get( nombreTipoGasolina );
-        galonesVendidos.put( nombreTipoGasolina, cantidadAnterior - cantidadEntregada );
+        double anterior = galonesVendidos.get(nombreTipoGasolina);
+        galonesVendidos.put(nombreTipoGasolina, anterior + cantidadEntregada);
 
         return precio;
     }
